@@ -45,6 +45,18 @@ async function run() {
       res.send(result);
     });
 
+    //======== Booking Collection =========
+
+    //get method (load data with email)
+    app.get("/bookings", async (req, res) => {
+      let query = {};
+      if (req.query?.email) {
+        query = { email: req.query.email };
+      }
+      const result = await bookingCollection.find(query).toArray();
+      res.send(result);
+    });
+
     //post method (create operatin)
     app.post("/bookings", async (req, res) => {
       const order = req.body;
