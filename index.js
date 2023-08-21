@@ -47,8 +47,9 @@ async function run() {
 
     //post method (create operatin)
     app.post("/bookings", async (req, res) => {
-      const order = rea.body;
-      console.log(order);
+      const order = req.body;
+      const result = await bookingCollection.insertOne(order);
+      res.send(result);
     });
 
     //Ping to successful connection
