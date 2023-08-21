@@ -28,6 +28,8 @@ async function run() {
     //collection and database
     const serviceCollection = client.db("carDB").collection("services");
 
+    const bookingCollection = client.db("carDB").collection("bookings");
+
     //get method (default all)
     app.get("/services", async (req, res) => {
       const cursor = serviceCollection.find();
