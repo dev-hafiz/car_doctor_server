@@ -45,6 +45,12 @@ async function run() {
       res.send(result);
     });
 
+    //post method (create operatin)
+    app.post("/bookings", async (req, res) => {
+      const order = rea.body;
+      console.log(order);
+    });
+
     //Ping to successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
