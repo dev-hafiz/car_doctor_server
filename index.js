@@ -29,6 +29,10 @@ async function run() {
     //collection and database
     const serviceCollection = client.db("carDB").collection("services");
 
+    app.post("/jwt", (req, res) => {
+      const user = req.body;
+    });
+
     const bookingCollection = client.db("carDB").collection("bookings");
 
     //get method (default all)
