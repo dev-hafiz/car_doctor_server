@@ -23,7 +23,10 @@ const client = new MongoClient(uri, {
 
 //JWT Verify Func
 const verifyJwt = (req, res, next) => {
-  console.log("JWT is Hitting");
+  const authorization = req.headers.authorization;
+  if (!authorization) {
+    res.status(401).send({ error: true, message: "unauthorized access" });
+  }
 };
 
 async function run() {
