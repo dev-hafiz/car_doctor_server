@@ -23,10 +23,26 @@ const client = new MongoClient(uri, {
 
 //JWT Verify Func
 const verifyJwt = (req, res, next) => {
+  // console.log(req.headers.authorization)
   const authorization = req.headers.authorization;
   if (!authorization) {
-    res.status(401).send({ error: true, message: "unauthorized access" });
+    return res
+      .status(401)
+      .send({ error: true, message: "unauthorized access" });
   }
+
+  const token = authorization.split(" ")[1];
+  // console.log(token)
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, decoded) => {
+    if (error) {
+      return res
+        .status(401)
+        .send({ error: true, message: "unauthorized access" });
+    }
+
+    req.decoded = decoded;
+    next();
+  });
 };
 
 async function run() {
@@ -41,7 +57,7 @@ async function run() {
       const user = req.body;
       console.log(user);
       const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: "1h",
+        expiresIn: 4,
       });
       res.send({ token });
     });
@@ -68,6 +84,13 @@ async function run() {
     //get method (load data with email)
     app.get("/bookings", verifyJwt, async (req, res) => {
       // console.log(req.headers.authorization);
+      const decoded = req.decoded;
+      console.log(decoded);
+
+      if (decoded.email !== req.params.email) {
+        return res.status(403).send({ error: 1, message: "forbidden access" });
+      }
+
       let query = {};
       if (req.query?.email) {
         query = { email: req.query.email };
