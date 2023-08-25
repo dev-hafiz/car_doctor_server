@@ -21,6 +21,11 @@ const client = new MongoClient(uri, {
   },
 });
 
+//JWT Verify Func
+const verifyJwt = (req, res, next) => {
+  console.log("JWT is Hitting");
+};
+
 async function run() {
   try {
     // Connect the server
@@ -58,8 +63,8 @@ async function run() {
     //======== Booking Collection =========
 
     //get method (load data with email)
-    app.get("/bookings", async (req, res) => {
-      console.log(req.headers.authorization);
+    app.get("/bookings", verifyJwt, async (req, res) => {
+      // console.log(req.headers.authorization);
       let query = {};
       if (req.query?.email) {
         query = { email: req.query.email };
