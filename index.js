@@ -31,14 +31,10 @@ async function run() {
 
     app.post("/jwt", (req, res) => {
       const user = req.body;
-      const token = jwt.sign(
-        { foo: "bar" },
-        process.env.ACCESS_TOKEN_SECRET,
-        { algorithm: "RS256" },
-        function (err, token) {
-          console.log(token);
-        }
-      );
+      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: "1h",
+      });
+      res.send({ token });
     });
 
     const bookingCollection = client.db("carDB").collection("bookings");
