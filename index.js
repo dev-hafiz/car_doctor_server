@@ -53,13 +53,14 @@ async function run() {
     //collection and database
     const serviceCollection = client.db("carDB").collection("services");
 
-    // app.post("/jwt", (req, res) => {
-    //   const user = req.body;
-    //   const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-    //     expiresIn: 5,
-    //   });
-    //   res.send({ token });
-    // });
+    app.post("/jwt", (req, res) => {
+      const user = req.body;
+      console.log(user);
+      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: "1h",
+      });
+      res.send({ token });
+    });
 
     const bookingCollection = client.db("carDB").collection("bookings");
 
