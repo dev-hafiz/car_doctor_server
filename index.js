@@ -22,28 +22,28 @@ const client = new MongoClient(uri, {
 });
 
 //JWT Verify Func
-const verifyJwt = (req, res, next) => {
-  // console.log(req.headers.authorization)
-  const authorization = req.headers.authorization;
-  if (!authorization) {
-    return res
-      .status(401)
-      .send({ error: true, message: "unauthorized access" });
-  }
+// const verifyJwt = (req, res, next) => {
+//   // console.log(req.headers.authorization)
+//   const authorization = req.headers.authorization;
+//   if (!authorization) {
+//     return res
+//       .status(401)
+//       .send({ error: true, message: "unauthorized access" });
+//   }
 
-  const token = authorization.split(" ")[1];
-  // console.log(token)
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, decoded) => {
-    if (error) {
-      return res
-        .status(401)
-        .send({ error: true, message: "unauthorized access" });
-    }
+//   const token = authorization.split(" ")[1];
+//   // console.log(token)
+//   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, decoded) => {
+//     if (error) {
+//       return res
+//         .status(401)
+//         .send({ error: true, message: "unauthorized access" });
+//     }
 
-    req.decoded = decoded;
-    next();
-  });
-};
+//     req.decoded = decoded;
+//     next();
+//   });
+// };
 
 async function run() {
   try {
@@ -53,13 +53,13 @@ async function run() {
     //collection and database
     const serviceCollection = client.db("carDB").collection("services");
 
-    app.post("/jwt", (req, res) => {
-      const user = req.body;
-      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: "1h",
-      });
-      res.send({ token });
-    });
+    // app.post("/jwt", (req, res) => {
+    //   const user = req.body;
+    //   const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+    //     expiresIn: 5,
+    //   });
+    //   res.send({ token });
+    // });
 
     const bookingCollection = client.db("carDB").collection("bookings");
 
@@ -81,13 +81,7 @@ async function run() {
     //======== Booking Collection =========
 
     //get method (load data with email)
-    app.get("/bookings", verifyJwt, async (req, res) => {
-      // console.log(req.headers.authorization);
-      const decoded = req.decoded;
-      if (decoded.email !== req.params?.email) {
-        return res.status(403).send({ error: 1, message: "forbidden access" });
-      }
-
+    app.get("/bookings", async (req, res) => {
       let query = {};
       if (req.query?.email) {
         query = { email: req.query.email };
