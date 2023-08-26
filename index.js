@@ -22,8 +22,9 @@ const client = new MongoClient(uri, {
 });
 
 //JWT Verify Func
-const verifyJwt = (req, res, next) => {
-  // console.log(req.headers.authorization)
+const verifyJWT = (req, res, next) => {
+  console.log(req.headers.authorization);
+
   // const authorization = req.headers.authorization;
   // if (!authorization) {
   //   return res
@@ -43,6 +44,7 @@ async function run() {
     //collection and database
     const serviceCollection = client.db("carDB").collection("services");
 
+    //JWT TOKEN CREATION
     app.post("/jwt", (req, res) => {
       const user = req.body;
       console.log(user);
@@ -72,9 +74,9 @@ async function run() {
 
     //======== Booking Collection =========
 
-    //get method (load data with email)
-    app.get("/bookings", async (req, res) => {
-      console.log(req.headers);
+    //get method (load data with email and JWT verify)
+    app.get("/bookings", verifyJWT, async (req, res) => {
+      // console.log(req.headers.authorization);
       let query = {};
       if (req.query?.email) {
         query = { email: req.query.email };
