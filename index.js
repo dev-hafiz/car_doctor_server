@@ -114,7 +114,7 @@ async function run() {
       res.send(result);
     });
 
-    //patch method (Use patch update  item))
+    //Patch Method (Use patch update single item))
     app.patch("/bookings/:id", async (req, res) => {
       const id = req.params.id;
       const updatedBooking = req.body;
