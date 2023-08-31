@@ -49,7 +49,7 @@ async function run() {
     // Connect the server
     await client.connect();
 
-    //collection and database
+    //Collection and Database
     const serviceCollection = client.db("carDB").collection("services");
 
     //JWT TOKEN CREATION
