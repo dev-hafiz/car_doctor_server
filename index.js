@@ -81,7 +81,7 @@ async function run() {
 
     //======== Booking Collection =========
 
-    //get method (load data with email and JWT verify)
+    //Get Method (load data with email and JWT verify)
     app.get("/bookings", verifyJWT, async (req, res) => {
       // console.log(req.headers.authorization);
       const decoded = req.decoded;
@@ -99,7 +99,7 @@ async function run() {
       res.send(result);
     });
 
-    //post method (create operatin)
+    //Post Method (create operatin)
     app.post("/bookings", async (req, res) => {
       const order = req.body;
       const result = await bookingCollection.insertOne(order);
