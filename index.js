@@ -52,7 +52,7 @@ async function run() {
     //Collection and Database
     const serviceCollection = client.db("carDB").collection("services");
 
-    //JWT TOKEN CREATION
+    //JWT Route for Token Creation
     app.post("/jwt", (req, res) => {
       const user = req.body;
       console.log(user);
