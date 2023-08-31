@@ -24,7 +24,6 @@ const client = new MongoClient(uri, {
 //JWT Verify Function
 const verifyJWT = (req, res, next) => {
   // console.log(req.headers.authorization);
-
   const authorization = req.headers.authorization;
   if (!authorization) {
     return res
@@ -32,7 +31,7 @@ const verifyJWT = (req, res, next) => {
       .send({ error: true, message: "unauthorized access" });
   }
   const token = authorization.split(" ")[1];
-  // console.log(token);
+
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
     if (err) {
       return res
