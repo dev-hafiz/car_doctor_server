@@ -21,7 +21,7 @@ const client = new MongoClient(uri, {
   },
 });
 
-//JWT Verify Func
+//JWT Verify Function
 const verifyJWT = (req, res, next) => {
   // console.log(req.headers.authorization);
 
