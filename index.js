@@ -51,6 +51,7 @@ async function run() {
 
     //Collection and Database
     const serviceCollection = client.db("carDB").collection("services");
+    const bookingCollection = client.db("carDB").collection("bookings");
 
     //JWT Route for Token Creation
     app.post("/jwt", (req, res) => {
@@ -62,8 +63,6 @@ async function run() {
       console.log(token);
       res.send({ token });
     });
-
-    const bookingCollection = client.db("carDB").collection("bookings");
 
     //get method (default all)
     app.get("/services", async (req, res) => {
