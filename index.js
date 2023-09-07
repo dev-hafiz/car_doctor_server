@@ -79,7 +79,7 @@ async function run() {
       res.send(result);
     });
 
-    //======== Booking Collection =========
+    //========= Booking Collection ==========
 
     //Get Method (load data with email and JWT verify)
     app.get("/bookings", verifyJWT, async (req, res) => {
