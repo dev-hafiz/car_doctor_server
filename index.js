@@ -49,10 +49,6 @@ async function run() {
     // Connect the server
     await client.connect();
 
-    //Collection and Database
-    const serviceCollection = client.db("carDB").collection("services");
-    const bookingCollection = client.db("carDB").collection("bookings");
-
     //JWT Route for Token Creation
     app.post("/jwt", (req, res) => {
       const user = req.body;
