@@ -64,14 +64,14 @@ async function run() {
       res.send({ token });
     });
 
-    //Get method (default all)
+    //Get Method (default all)
     app.get("/services", async (req, res) => {
       const cursor = serviceCollection.find();
       const result = await cursor.toArray();
       res.send(result);
     });
 
-    //Get method (specific one by id)
+    //Get Method (specific one by id)
     app.get("/services/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
