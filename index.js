@@ -83,7 +83,6 @@ async function run() {
 
     //Get Method (load data with email and JWT verify)
     app.get("/bookings", verifyJWT, async (req, res) => {
-      // console.log(req.headers.authorization);
       const decoded = req.decoded;
 
       if (decoded.email !== req.query.email) {
