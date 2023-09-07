@@ -98,11 +98,6 @@ async function run() {
     });
 
     //Post Method (create operatin)
-    app.post("/bookings", async (req, res) => {
-      const order = req.body;
-      const result = await bookingCollection.insertOne(order);
-      res.send(result);
-    });
 
     //Delete Method
     app.delete("/bookings/:id", async (req, res) => {
